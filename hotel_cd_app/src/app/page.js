@@ -182,14 +182,23 @@ export default function HomePage() {
     try {
       const response = await fetch('/api/hotels');
       if (!response.ok) {
-        const errData = await response.json().catch(() => ({ error: "未知错误" }));
-        throw new Error(errData.error || `HTTP 错误! 状态: ${response.status}`);
+        const errData = await response.json().catch(() => ({ error: "获取酒店列表失败，请稍后重试" }));
+        throw new Error(errData.error || `请求失败，状态码: ${response.status}`);
       }
       const data = await response.json();
       setHotels(data);
     } catch (e) {
       console.error("获取酒店列表失败:", e);
-      setError(e.message);
+      let errorMessage = "未知错误，请稍后重试";
+      if (e.message) {
+        errorMessage = e.message;
+      } else if (e.response) {
+        errorMessage = `请求失败，状态码: ${e.response.status}`;
+        if (e.response.data?.error) {
+          errorMessage = e.response.data.error;
+        }
+      }
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }

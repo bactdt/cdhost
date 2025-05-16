@@ -1,10 +1,10 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-export function getAuth(request) {
+export async function getAuth(request) {
   try {
     const cookieStore = cookies();
-    const userId = cookieStore.get('userId')?.value;
+    const userId = await cookieStore.get('userId')?.value;
     
     if (!userId) {
       throw new Error('用户未认证');
