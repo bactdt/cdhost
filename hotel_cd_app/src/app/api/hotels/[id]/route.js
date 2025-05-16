@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import redis from "@/lib/redis"; // Assuming @ is configured for src path alias
 
-// Mock user ID for now - replace with actual user ID from session/auth
-const MOCK_USER_ID = "user123";
+import { getAuth } from "@/lib/auth";
 
 /**
  * Handles PUT request to update a hotel entry.
@@ -23,7 +22,11 @@ export async function PUT(request, { params }) {
     const body = await request.json();
     const { hotelName, checkInDate, customCD } = body;
 
-    const hotelKey = `user:${MOCK_USER_ID}:hotel:${hotelId}`;
+    const { userId } = getAuth(request);
+    if (!userId) {
+      return NextResponse.json({ error: "用户未认证" }, { status: 401 });
+    }
+    const hotelKey = `user:${userId}:hotel:${hotelId}`;
 
     // Check if hotel entry exists
     const exists = await redis.exists(hotelKey);
@@ -78,7 +81,11 @@ export async function DELETE(request, { params }) {
   }
 
   try {
-    const hotelKey = `user:${MOCK_USER_ID}:hotel:${hotelId}`;
+    const { userId } = getAuth(request);
+    if (!userId) {
+      return NextResponse.json({ error: "用户未认证" }, { status: 401 });
+    }
+    const hotelKey = `user:${userId}:hotel:${hotelId}`;
 
     // Check if hotel entry exists before attempting to delete
     const exists = await redis.exists(hotelKey);
@@ -90,7 +97,7 @@ export async function DELETE(request, { params }) {
     await redis.del(hotelKey);
 
     // Remove hotel ID from the user's set of hotels
-    const userHotelsSetKey = `user:${MOCK_USER_ID}:hotels`;
+    const userHotelsSetKey = `user:${userId}:hotels`;
     await redis.srem(userHotelsSetKey, hotelId);
 
     return NextResponse.json({ message: "Hotel entry deleted successfully" }, { status: 200 }); // Or 204 No Content
