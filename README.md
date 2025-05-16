@@ -7,6 +7,8 @@
 # [ios版本](https://github.com/bactdt/contcd)
 ----
 demo
+[作者部署的版本](https://cdhost.vercel.app/）
+
 [demo](https://xonplgjx.manus.space)
 -----
 # .env
