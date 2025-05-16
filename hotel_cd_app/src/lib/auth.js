@@ -2,13 +2,17 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 export function getAuth(request) {
-  // Implement your authentication logic here
-  // For example, checking cookies or headers for user session
-  
-  // This is a placeholder implementation
-  // You should replace this with your actual auth logic
-  const cookieStore = cookies();
-  const userId = cookieStore.get('userId')?.value;
-  
-  return { userId };
+  try {
+    const cookieStore = cookies();
+    const userId = cookieStore.get('userId')?.value;
+    
+    if (!userId) {
+      throw new Error('用户未认证');
+    }
+    
+    return { userId };
+  } catch (error) {
+    console.error('认证错误:', error);
+    return { error: error.message };
+  }
 }
