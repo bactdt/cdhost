@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs';
+import { auth } from '@clerk/nextjs/server';
 // import prisma from '@/lib/prisma'; // 看起来这个项目主要使用 Redis
 import redis from '@/lib/redis'; // 引入 redis 客户端
 import { addCDInfoToHotelData } from '@/lib/cdUtils'; // 引入 CD 计算工具

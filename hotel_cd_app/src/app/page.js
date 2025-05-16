@@ -56,9 +56,9 @@ export default function Home() {
   };
 
   // Display loading or error state
-  if (!isLoaded) {
-    return <div>Loading user...</div>; // Show loading state while Clerk loads
-  }
+  // if (!isLoaded) {
+  //   return <div>Loading user...</div>; // Show loading state while Clerk loads
+  // }
 
   if (loading) {
     return <div>Loading hotels...</div>; // Show loading state while fetching hotels
@@ -68,6 +68,6 @@ export default function Home() {
     return <div className="text-red-500">{error}</div>; // Show error message
   }
 
-  // ... existing code ...
+  return <HotelList hotels={hotels} handleHotelAdded={handleHotelAdded} />;
 }
 
