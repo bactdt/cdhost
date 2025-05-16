@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "ES2017",
     "types": [
-      "@cloudflare/workers-types/2023-07-01"
+      "@cloudflare/workers-types",
+      "@clerk/nextjs"
     ],
     "lib": [
       "dom",

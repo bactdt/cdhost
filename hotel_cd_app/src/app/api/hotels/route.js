@@ -65,7 +65,7 @@ export async function POST(request) {
     return NextResponse.json(hotelForResponse, { status: 201 });
   } catch (error) {
     console.error("添加酒店出错:", error);
-    return NextResponse.json({ error: "未能添加酒店记录.", details: error.message }, { status: 500 });
+    return NextResponse.json({ error: "未能添加酒店记录。", details: error.message }, { status: 500 });
   }
 }
 
@@ -111,13 +111,12 @@ hotels.push(hotelData);
     return NextResponse.json(hotelsWithCDInfo, { status: 200 });
   } catch (error) {
     console.error("获取酒店列表失败:", error);
-    return NextResponse.json({ error: "未能获取酒店记录.", details: error.message }, { status: 500 });
+    return NextResponse.json({ error: "未能获取酒店记录。", details: error.message }, { status: 500 });
   }
-
-// Basic DELETE functionality (can be expanded)
 }
 
-export async function DELETE(request) {
+// Basic DELETE functionality (can be expanded)
+export async function DELETE(request, { params }) {
     const { userId } = getAuth(request);
     if (!userId) {
         return NextResponse.json({ error: "用户未认证。" }, { status: 401 });
@@ -163,6 +162,7 @@ export async function DELETE(request) {
         return NextResponse.json({ message: "酒店记录已删除。" }, { status: 200 });
     } catch (error) {
         console.error("删除酒店出错:", error);
-        return NextResponse.json({ error: "未能删除酒店记录.", details: error.message }, { status: 500 });
+        return NextResponse.json({ error: "未能删除酒店记录。", details: error.message }, { status: 500 });
     }
 }
+
