@@ -274,6 +274,13 @@ export default function HomePage() {
 
   let baseDisplayedHotels = activeTab === 'current' ? currentHotelsSource : historyHotelsSource;
 
+  // 按入住日期排序（降序）
+  baseDisplayedHotels = baseDisplayedHotels.sort((a, b) => {
+    const dateA = new Date(a.checkInDate);
+    const dateB = new Date(b.checkInDate);
+    return dateB - dateA; // 降序排序，最新日期在前
+  });
+
   const displayedHotels = searchTerm.trim() === ''
     ? baseDisplayedHotels
     : baseDisplayedHotels.filter(hotel =>
