@@ -68,6 +68,11 @@ export default function Home() {
     return <div className="text-red-500">{error}</div>; // Show error message
   }
 
-  return <HotelList hotels={hotels} handleHotelAdded={handleHotelAdded} />;
+  return (
+    <div>
+      <AddHotelForm onHotelAdded={handleHotelAdded} />
+      <HotelList hotels={hotels} handleHotelAdded={handleHotelAdded} />
+    </div>
+  );
 }
 
