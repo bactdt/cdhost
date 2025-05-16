@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useUser } from '@clerk/nextjs';
-import HotelList from '../components/HotelList';
-import AddHotelForm from '../components/AddHotelForm';
+import HotelList from '@/components/HotelList'; // 修改导入路径
+import AddHotelForm from '@/components/AddHotelForm'; // 修改导入路径
 
 export default function Home() {
   const { isLoaded, isSignedIn, user } = useUser();
